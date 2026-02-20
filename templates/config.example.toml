@@ -1,0 +1,19 @@
+[france_travail]
+client_id = "PUT_CLIENT_ID"
+client_secret = "PUT_CLIENT_SECRET"
+
+[mail]
+smtp_host = "smtp.gmail.com"
+smtp_port = 587
+smtp_user = "gomesnikas@gmail.com"
+smtp_password = "AQWxsz&1245"  # mot de passe d’application
+from_name = "Nicolas Gomes"
+daily_limit = 10
+
+[profile]
+full_name = "Nicolas Dasylva GOMES"
+title = "Data Engineer | DataOps | Big Data & Cloud"
+location = "Lyon, France"
+phone = "07 50 08 81 60"
+email = "gomesnikas@gmail.com"
+linkedin = ""

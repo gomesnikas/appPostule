@@ -1,0 +1,12 @@
+Bonjour,
+
+Je vous contacte au sujet du poste « {{TITLE}} » chez {{COMPANY}}.
+
+Data Engineer / DataOps orienté Big Data & Cloud, j’ai travaillé sur des pipelines temps réel (Kafka/Spark), l’orchestration (Airflow) et l’industrialisation CI/CD, avec une forte culture production.
+
+Je serais ravi d’échanger pour vous présenter mon profil et la manière dont je peux contribuer à vos enjeux data.
+
+Vous trouverez mon CV en pièce jointe.
+Bien cordialement,
+{{NAME}}
+{{PHONE}} | {{EMAIL}}

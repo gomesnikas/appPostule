@@ -1,0 +1,9 @@
+Objet : Candidature – {{TITLE}} ({{COMPANY}})
+
+Madame, Monsieur,
+
+Je vous adresse ma candidature pour le poste « {{TITLE}} » chez {{COMPANY}}.
+[...]
+
+Cordialement,
+{{NAME}}

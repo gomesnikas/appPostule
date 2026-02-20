@@ -1,0 +1,8 @@
+python -m venv .venv
+source .\.venv\Scripts\Activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+py -3.11 -m venv .venv
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+streamlit run app.py
+

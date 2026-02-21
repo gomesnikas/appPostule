@@ -1,6 +1,6 @@
 [france_travail]
-client_id = "PUT_CLIENT_ID"
-client_secret = "PUT_CLIENT_SECRET"
+client_id = "PAR_apppostule_49530440805ac1f88db4588bd72d91d8ed03be4b3702483e7adf480ef6534aed"
+client_secret = "bf354838ad72f27bd2a478978091ea7db28d19a861ecb45d81aa78005be749df"
 
 [mail]
 smtp_host = "smtp.gmail.com"

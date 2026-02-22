@@ -113,7 +113,8 @@ def get_token(client_id: str, client_secret: str) -> str:
 def fetch_jobs_data_only(token: str, page: int = 0, size: int = 50) -> Dict[str, Any]:
     path = "/partenaire/offresdemploi/v2/offres/search"
 
-    mots_cles = "data engineer OR dataops OR data analyst OR data scientist OR big data OR databricks OR spark"
+    # mots_cles = "data engineer OR dataops OR data analyst OR data scientist OR big data OR databricks OR spark"
+    mots_cles = "data"
 
     headers = {
         "Authorization": f"Bearer {token}",
@@ -124,6 +125,7 @@ def fetch_jobs_data_only(token: str, page: int = 0, size: int = 50) -> Dict[str,
 
     params = {
         "motsCles": mots_cles,
+        "publieeDepuis": "7"  # 7 derniers jours (si accepté)
     }
 
     r = ft_get(path, headers=headers, params=params, timeout=30)

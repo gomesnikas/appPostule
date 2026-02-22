@@ -112,18 +112,26 @@ def get_token(client_id: str, client_secret: str) -> str:
 
 def fetch_jobs_data_only(token: str, page: int = 0, size: int = 50) -> Dict[str, Any]:
     path = "/partenaire/offresdemploi/v2/offres/search"
-    headers = {"Authorization": f"Bearer {token}"}
 
     mots_cles = "data engineer OR dataops OR data analyst OR data scientist OR big data OR databricks OR spark"
 
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/json",
+        # ✅ Range en header (format souvent attendu)
+        "Range": f"items={page*size}-{page*size + size - 1}",
+    }
+
     params = {
         "motsCles": mots_cles,
-        "range": f"{page*size}-{page*size + size - 1}",
     }
 
     r = ft_get(path, headers=headers, params=params, timeout=30)
 
-    # ✅ Sécurité : vérifier que c'est du JSON
+    if r.status_code == 204:
+        # Aucun contenu retourné
+        return {"resultats": []}
+
     ctype = (r.headers.get("Content-Type") or "").lower()
     body_preview = (r.text or "")[:800]
 
@@ -136,17 +144,7 @@ def fetch_jobs_data_only(token: str, page: int = 0, size: int = 50) -> Dict[str,
             f"Body (début):\n{body_preview}"
         )
 
-    # ✅ JSON ok
-    try:
-        return r.json()
-    except Exception:
-        raise RuntimeError(
-            f"Impossible de parser le JSON.\n"
-            f"URL: {r.url}\n"
-            f"Status: {r.status_code}\n"
-            f"Content-Type: {ctype}\n"
-            f"Body (début):\n{body_preview}"
-        )
+    return r.json()
 
 
 # def fetch_jobs_data_only(token: str, page: int = 0, size: int = 50) -> Dict[str, Any]:

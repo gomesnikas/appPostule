@@ -58,10 +58,11 @@ def load_ft_credentials() -> tuple[str, str]:
 
 # --------- HTTP helpers ---------
 
-TOKEN_URL = "https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=/partenaire"
+TOKEN_URL = "https://entreprise.francetravail.fr/connexion/oauth2/access_token?realm=/partenaire"
 
 # Fallback bases: Streamlit Cloud semble parfois refuser/filtrer api.pole-emploi.io
 BASE_URLS = [
+    "https://api.francetravail.io",
     "https://api.emploi-store.fr",
     "https://api.pole-emploi.io",
 ]

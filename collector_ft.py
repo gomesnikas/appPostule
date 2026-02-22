@@ -111,13 +111,9 @@ def get_token(client_id: str, client_secret: str) -> str:
 # --------- Search & normalize ---------
 
 def fetch_jobs_data_only(token: str, page: int = 0, size: int = 50) -> Dict[str, Any]:
-    """
-    Calls FT job offers search endpoint.
-    """
     path = "/partenaire/offresdemploi/v2/offres/search"
     headers = {"Authorization": f"Bearer {token}"}
 
-    # Mots-clés Data (tu peux affiner)
     mots_cles = "data engineer OR dataops OR data analyst OR data scientist OR big data OR databricks OR spark"
 
     params = {
@@ -125,11 +121,54 @@ def fetch_jobs_data_only(token: str, page: int = 0, size: int = 50) -> Dict[str,
         "range": f"{page*size}-{page*size + size - 1}",
     }
 
-    # IMPORTANT : ne pas mettre departement vide
-    # Si tu veux filtrer, ajoute: params["departement"] = "69" etc.
-
     r = ft_get(path, headers=headers, params=params, timeout=30)
-    return r.json()
+
+    # ✅ Sécurité : vérifier que c'est du JSON
+    ctype = (r.headers.get("Content-Type") or "").lower()
+    body_preview = (r.text or "")[:800]
+
+    if "application/json" not in ctype:
+        raise RuntimeError(
+            f"Réponse non-JSON de l'API FT.\n"
+            f"URL: {r.url}\n"
+            f"Status: {r.status_code}\n"
+            f"Content-Type: {ctype}\n"
+            f"Body (début):\n{body_preview}"
+        )
+
+    # ✅ JSON ok
+    try:
+        return r.json()
+    except Exception:
+        raise RuntimeError(
+            f"Impossible de parser le JSON.\n"
+            f"URL: {r.url}\n"
+            f"Status: {r.status_code}\n"
+            f"Content-Type: {ctype}\n"
+            f"Body (début):\n{body_preview}"
+        )
+
+
+# def fetch_jobs_data_only(token: str, page: int = 0, size: int = 50) -> Dict[str, Any]:
+#     """
+#     Calls FT job offers search endpoint.
+#     """
+#     path = "/partenaire/offresdemploi/v2/offres/search"
+#     headers = {"Authorization": f"Bearer {token}"}
+
+#     # Mots-clés Data (tu peux affiner)
+#     mots_cles = "data engineer OR dataops OR data analyst OR data scientist OR big data OR databricks OR spark"
+
+#     params = {
+#         "motsCles": mots_cles,
+#         "range": f"{page*size}-{page*size + size - 1}",
+#     }
+
+#     # IMPORTANT : ne pas mettre departement vide
+#     # Si tu veux filtrer, ajoute: params["departement"] = "69" etc.
+
+#     r = ft_get(path, headers=headers, params=params, timeout=30)
+#     return r.json()
 
 
 def normalize_ft_offer(offer: Dict[str, Any]) -> Dict[str, Any]:
